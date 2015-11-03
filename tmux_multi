@@ -93,7 +93,9 @@ if [ ! -z "$files" ]; then
         fi
         while read line; do
             # #で始まる行はスキップ
-            echo "$line" | grep -E '^\s*#' 1> /dev/null 2>&1 && continue
+            if [[ "$line" =~ ^\ *# ]]; then
+                continue
+            fi
             split_window "$line"
             is_first=0
         done < "$file"
